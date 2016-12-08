@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 .useSquarePhotos(true)
                 .placeHolder(R.drawable.placeholder_photo)
                 .loadPhotos(getDrawablesIds());
+        collageView.setOnPhotoClickListener(new CollageView.OnPhotoClickListener() {
+            @Override
+            public void onPhotoClick(int position) {
+                // do random stuff here
+            }
+        });
     }
 
     private int[] getDrawablesIds() {
