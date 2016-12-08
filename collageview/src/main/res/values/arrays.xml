@@ -6,4 +6,11 @@
         <item>https://pp.vk.me/c636329/v636329371/1ec86/zKkB7Df9Lug.jpg</item>
         <item>https://pp.vk.me/c633921/v633921371/19cd7/MPTl5ZWdgw4.jpg</item>
     </string-array>
+    <integer-array name="resids">
+        <item>@drawable/res_item_1</item>
+        <item>@drawable/res_item_2</item>
+        <item>@drawable/res_item_3</item>
+        <item>@drawable/res_item_4</item>
+        <item>@drawable/res_item_5</item>
+    </integer-array>
 </resources>
