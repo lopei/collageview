@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class CollageView extends LinearLayout {
     private List<String> urls;
+    private int[] resIds;
 
     private int color = Color.TRANSPARENT;
     private int photoPadding = 0;
@@ -82,77 +84,126 @@ public class CollageView extends LinearLayout {
         return this;
     }
 
+    public void loadPhotos(String[] urls) {
+        this.urls = new ArrayList<>(Arrays.asList(urls));
+        init();
+    }
+
+    public void loadPhotos(int[] resIds) {
+        this.resIds = resIds;
+        init();
+    }
+
     public void loadPhotos(List<String> urls) {
         this.urls = urls;
         init();
     }
 
     private void init() {
+        boolean fromResourses = resIds != null && urls == null;
+
         setOrientation(VERTICAL);
         setBackgroundColor(color);
         removeAllViews();
         ArrayList<String> addUrls = new ArrayList<>();
-        if (urls.size() > 0) {
-            int number = 0;
-            int i = 0;
-            while (i < urls.size()) {
-                addUrls.add(urls.get(i));
-                number++;
-                if (number == 3 || urls.size() == i + 1) {
-                    final LinearLayout photosLine = new LinearLayout(getContext());
-                    photosLine.setLayoutParams(new LayoutParams(-1, -2));
-                    photosLine.setOrientation(LinearLayout.HORIZONTAL);
-                    photosLine.setWeightSum(6.0f);
-                    for (int j = 0; j < addUrls.size(); j++) {
-                        ViewGroup photoFrame;
-                        if (useCards) {
-                            photoFrame = new CardView(getContext());
-                        } else {
-                            photoFrame = new FrameLayout(getContext());
-                        }
-                        LayoutParams layoutParams = new LayoutParams(0, -1, (float) (6 / addUrls.size()));
-                        layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
-                        photoFrame.setLayoutParams(layoutParams);
-                        ImageView imageView = new ImageView(getContext());
-                        imageView.setLayoutParams(new LayoutParams(-1, -1));
-                        imageView.setAdjustViewBounds(true);
-                        imageView.setBackgroundColor(photoFrameColor);
-                        imageView.setPadding(photoPadding, photoPadding, photoPadding, photoPadding);
-                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        final String url = addUrls.get(j);
-                        photoFrame.addView(imageView);
-
-
-                        try {
-                            RequestCreator requestCreator =
-                                    Picasso
-                                            .with(getContext())
-                                            .load(url);
-                            if (placeHolderResId != 0) {
-                                requestCreator.placeholder(placeHolderResId);
-                            }
-                            requestCreator.into(imageView);
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                        }
-                        if (onPhotoClickListener != null) {
-                            final int finalI = i;
-                            photoFrame.setOnClickListener(new OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    onPhotoClickListener.onPhotoClick(finalI, url);
-                                }
-                            });
-                        } else {
-                            photoFrame.setOnClickListener(null);
-                        }
-                        photosLine.addView(photoFrame);
+        ArrayList<Integer> addRes = new ArrayList<>();
+        if (urls != null || resIds != null) {
+            int size = 0;
+            if (urls != null) {
+                size = urls.size();
+            } else if (resIds != null) {
+                size = resIds.length;
+            }
+            if (size > 0) {
+                int number = 0;
+                int i = 0;
+                while (i < size) {
+                    if (fromResourses) {
+                        addRes.add(resIds[i]);
+                    } else {
+                        addUrls.add(urls.get(i));
                     }
-                    addView(photosLine);
-                    addUrls.clear();
-                    number = 0;
+                    number++;
+                    if (number == 3 || size == i + 1) {
+                        int addSize = 0;
+                        if (urls != null) {
+                            addSize = addUrls.size();
+                        } else if (resIds != null) {
+                            addSize = addRes.size();
+                        }
+                        final LinearLayout photosLine = new LinearLayout(getContext());
+                        photosLine.setLayoutParams(new LayoutParams(-1, -2));
+                        photosLine.setOrientation(LinearLayout.HORIZONTAL);
+                        photosLine.setWeightSum(6.0f);
+                        for (int j = 0; j < addSize; j++) {
+                            ViewGroup photoFrame;
+                            if (useCards) {
+                                photoFrame = new CardView(getContext());
+                            } else {
+                                photoFrame = new FrameLayout(getContext());
+                            }
+                            LayoutParams layoutParams = new LayoutParams(0, -1, (float) (6 / addSize));
+                            layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
+                            photoFrame.setLayoutParams(layoutParams);
+                            ImageView imageView = new ImageView(getContext());
+                            imageView.setLayoutParams(new LayoutParams(-1, -1));
+                            imageView.setAdjustViewBounds(true);
+                            imageView.setBackgroundColor(photoFrameColor);
+                            imageView.setPadding(photoPadding, photoPadding, photoPadding, photoPadding);
+                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            photoFrame.addView(imageView);
+
+
+                            String url = null;
+                            int resId = 0;
+                            if (fromResourses) {
+                                resId = addRes.get(j);
+                            } else {
+                                url = addUrls.get(j);
+                            }
+                            try {
+                                Picasso picasso =
+                                        Picasso
+                                                .with(getContext());
+                                RequestCreator requestCreator = null;
+                                if (fromResourses) {
+                                    if (resId != 0) {
+                                        requestCreator = picasso.load(resId);
+                                    }
+                                } else {
+                                    if (url != null) {
+                                        requestCreator = picasso.load(url);
+                                    }
+                                }
+                                if (requestCreator != null) {
+                                    if (placeHolderResId != 0) {
+                                        requestCreator.placeholder(placeHolderResId);
+                                    }
+                                    requestCreator.into(imageView);
+                                }
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+                            }
+                            if (onPhotoClickListener != null) {
+                                final int finalI = i;
+                                photoFrame.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        onPhotoClickListener.onPhotoClick(finalI);
+                                    }
+                                });
+                            } else {
+                                photoFrame.setOnClickListener(null);
+                            }
+                            photosLine.addView(photoFrame);
+                        }
+                        addView(photosLine);
+                        addUrls.clear();
+                        addRes.clear();
+                        number = 0;
+                    }
+                    i++;
                 }
-                i++;
             }
         }
     }
@@ -162,6 +213,6 @@ public class CollageView extends LinearLayout {
     }
 
     public interface OnPhotoClickListener {
-        void onPhotoClick(int position, String url);
+        void onPhotoClick(int position);
     }
 }
