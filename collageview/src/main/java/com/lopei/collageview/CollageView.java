@@ -32,7 +32,8 @@ public class CollageView extends LinearLayout {
     private int photoMargin = 0;
     private int placeHolderResId = 0;
     private int photoFrameColor = Color.TRANSPARENT;
-    private boolean useCards;
+    private boolean useCards = false;
+    private boolean useSquarePhotos = false;
 
 
     private OnPhotoClickListener onPhotoClickListener;
@@ -81,6 +82,11 @@ public class CollageView extends LinearLayout {
 
     public CollageView useCards(boolean useCards) {
         this.useCards = useCards;
+        return this;
+    }
+
+    public CollageView useSquarePhotos(boolean useSquarePhotos) {
+        this.useSquarePhotos = useSquarePhotos;
         return this;
     }
 
@@ -145,7 +151,12 @@ public class CollageView extends LinearLayout {
                             LayoutParams layoutParams = new LayoutParams(0, -1, (float) (6 / addSize));
                             layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
                             photoFrame.setLayoutParams(layoutParams);
-                            ImageView imageView = new ImageView(getContext());
+                            ImageView imageView;
+                            if (useSquarePhotos) {
+                                imageView = new SquareImageView(getContext());
+                            } else {
+                                imageView = new ImageView(getContext());
+                            }
                             imageView.setLayoutParams(new LayoutParams(-1, -1));
                             imageView.setAdjustViewBounds(true);
                             imageView.setBackgroundColor(photoFrameColor);
