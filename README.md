@@ -34,7 +34,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.0.4'
+  compile 'com.github.lopei:collageview:0.0.6'
 }
 ```
 
