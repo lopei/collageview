@@ -44,7 +44,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.6</version>
 </dependency>
   
 ```
