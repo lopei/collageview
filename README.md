@@ -36,7 +36,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.0.6'
+  compile 'com.github.lopei:collageview:0.0.7'
 }
 ```
 
@@ -46,7 +46,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
 </dependency>
   
 ```
@@ -73,6 +73,16 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .useCards(true) // adds cardview backgrounds to all photos
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
     .loadPhotos(urls); // here you can use Array/List of photo urls or array of resource ids
+```
+
+Step 5. Setup On Photo Click Listener (if needed)
+```
+collageView.setOnPhotoClickListener(new CollageView.OnPhotoClickListener() {
+  @Override
+  public void onPhotoClick(int position) {
+     // do random stuff here
+   }
+});
 ```
 ## Contrubution
 
