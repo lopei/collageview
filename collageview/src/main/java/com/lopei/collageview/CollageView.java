@@ -33,7 +33,9 @@ public class CollageView extends LinearLayout {
     private int placeHolderResId = 0;
     private int photoFrameColor = Color.TRANSPARENT;
     private boolean useCards = false;
-    private boolean useSquarePhotos = false;
+    private boolean useFirstAsHeader = true;
+
+    private int defaultPhotosForLine = 3;
 
 
     private OnPhotoClickListener onPhotoClickListener;
@@ -85,11 +87,6 @@ public class CollageView extends LinearLayout {
         return this;
     }
 
-    public CollageView useSquarePhotos(boolean useSquarePhotos) {
-        this.useSquarePhotos = useSquarePhotos;
-        return this;
-    }
-
     public void loadPhotos(String[] urls) {
         this.urls = new ArrayList<>(Arrays.asList(urls));
         init();
@@ -105,59 +102,57 @@ public class CollageView extends LinearLayout {
         init();
     }
 
+    public CollageView useFirstAsHeader(boolean useFirstAsHeader) {
+        this.useFirstAsHeader = useFirstAsHeader;
+        return this;
+    }
+
+    public CollageView defaultPhotosForLine(int defaultPhotosForLine) {
+        this.defaultPhotosForLine = defaultPhotosForLine;
+        return this;
+    }
+
     private void init() {
-        boolean fromResourses = resIds != null && urls == null;
+        boolean fromResources = resIds != null && urls == null;
 
         setOrientation(VERTICAL);
         setBackgroundColor(color);
         removeAllViews();
         ArrayList<String> addUrls = new ArrayList<>();
         ArrayList<Integer> addRes = new ArrayList<>();
+
+        ArrayList<Integer> photosCount = buildPhotosCounts();
+
         if (urls != null || resIds != null) {
-            int size = 0;
-            if (urls != null) {
-                size = urls.size();
-            } else if (resIds != null) {
-                size = resIds.length;
-            }
+            int size = getPhotosSize();
             if (size > 0) {
                 int number = 0;
                 int i = 0;
                 while (i < size) {
-                    if (fromResourses) {
+                    int photosInLine = photosCount.get(getChildCount());
+                    if (fromResources) {
                         addRes.add(resIds[i]);
                     } else {
                         addUrls.add(urls.get(i));
                     }
                     number++;
-                    if (number == 3 || size == i + 1) {
-                        int addSize = 0;
-                        if (urls != null) {
-                            addSize = addUrls.size();
-                        } else if (resIds != null) {
-                            addSize = addRes.size();
-                        }
+                    if (number == photosInLine || size == i + 1) {
                         final LinearLayout photosLine = new LinearLayout(getContext());
-                        photosLine.setLayoutParams(new LayoutParams(-1, -2));
+                        photosLine.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                         photosLine.setOrientation(LinearLayout.HORIZONTAL);
-                        photosLine.setWeightSum(6.0f);
-                        for (int j = 0; j < addSize; j++) {
+                        photosLine.setWeightSum(photosInLine * 1f);
+                        for (int j = 0; j < photosInLine; j++) {
                             ViewGroup photoFrame;
                             if (useCards) {
                                 photoFrame = new CardView(getContext());
                             } else {
                                 photoFrame = new FrameLayout(getContext());
                             }
-                            LayoutParams layoutParams = new LayoutParams(0, -1, (float) (6 / addSize));
+                            LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
                             layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
                             photoFrame.setLayoutParams(layoutParams);
-                            ImageView imageView;
-                            if (useSquarePhotos) {
-                                imageView = new SquareImageView(getContext());
-                            } else {
-                                imageView = new ImageView(getContext());
-                            }
-                            imageView.setLayoutParams(new LayoutParams(-1, -1));
+                            ImageView imageView = new SquareImageView(getContext());
+                            imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                             imageView.setAdjustViewBounds(true);
                             imageView.setBackgroundColor(photoFrameColor);
                             imageView.setPadding(photoPadding, photoPadding, photoPadding, photoPadding);
@@ -167,7 +162,7 @@ public class CollageView extends LinearLayout {
 
                             String url = null;
                             int resId = 0;
-                            if (fromResourses) {
+                            if (fromResources) {
                                 resId = addRes.get(j);
                             } else {
                                 url = addUrls.get(j);
@@ -177,7 +172,7 @@ public class CollageView extends LinearLayout {
                                         Picasso
                                                 .with(getContext());
                                 RequestCreator requestCreator = null;
-                                if (fromResourses) {
+                                if (fromResources) {
                                     if (resId != 0) {
                                         requestCreator = picasso.load(resId);
                                     }
@@ -217,6 +212,39 @@ public class CollageView extends LinearLayout {
                 }
             }
         }
+    }
+
+    private int getPhotosSize() {
+        int size = 0;
+        if (urls != null) {
+            size = urls.size();
+        } else if (resIds != null) {
+            size = resIds.length;
+        }
+        return size;
+    }
+
+    private ArrayList<Integer> buildPhotosCounts() {
+        int headerDecreaser = useFirstAsHeader ? 1 : 0;
+        int photosSize = getPhotosSize() - headerDecreaser;
+        int remainder = photosSize % defaultPhotosForLine;
+        int lineCount = photosSize / defaultPhotosForLine;
+        ArrayList<Integer> photosCounts = new ArrayList<>();
+        if (useFirstAsHeader) {
+            photosCounts.add(1);
+            lineCount++;
+        }
+        for (int i = 0; i < lineCount; i++) {
+            photosCounts.add(defaultPhotosForLine);
+        }
+        if (remainder >= lineCount) {
+            photosCounts.add(headerDecreaser, remainder);
+        } else {
+            for (int i = lineCount - 1; i > lineCount - remainder - 1; i--) {
+                photosCounts.set(i, photosCounts.get(i) + 1);
+            }
+        }
+        return photosCounts;
     }
 
     public void setOnPhotoClickListener(OnPhotoClickListener onPhotoClickListener) {

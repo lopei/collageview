@@ -11,6 +11,21 @@
         <item>@drawable/res_item_2</item>
         <item>@drawable/res_item_3</item>
         <item>@drawable/res_item_4</item>
-        <item>@drawable/res_item_5</item>
+        <item>@drawable/res_item_1</item>
+        <item>@drawable/res_item_2</item>
+        <item>@drawable/res_item_3</item>
+        <item>@drawable/res_item_4</item>
+        <item>@drawable/res_item_1</item>
+        <item>@drawable/res_item_2</item>
+        <item>@drawable/res_item_3</item>
+        <item>@drawable/res_item_4</item>
+        <item>@drawable/res_item_1</item>
+        <item>@drawable/res_item_2</item>
+        <item>@drawable/res_item_3</item>
+        <item>@drawable/res_item_4</item>
+        <item>@drawable/res_item_1</item>
+        <item>@drawable/res_item_2</item>
+        <item>@drawable/res_item_3</item>
+        <item>@drawable/res_item_4</item>
     </integer-array>
 </resources>
