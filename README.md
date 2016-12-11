@@ -6,6 +6,12 @@ CollageView is a library for creating simple photo collages in your applications
 Sample here:
 [Sample App](https://github.com/lopei/collageview/blob/master/app/src/main/java/com/lopei/myapplication/MainActivity.java)
 
+
+## What's new in version 0.0.8?
+- Removed parameter useSquarePhotos, now all photos are square
+- Added ability to use first photo as header (fit parent width and use full line - useFirstAsHeader(true)
+- Added ability to set default photos number for a line (can be changed by a program at runtime, if there are extra photos)
+
 ## How to use?
 Step 1. Add the JitPack repository to your build file
 
@@ -36,7 +42,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.0.7'
+  compile 'com.github.lopei:collageview:0.0.8'
 }
 ```
 
@@ -46,7 +52,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.0.7</version>
+  <version>0.0.8</version>
 </dependency>
   
 ```
@@ -69,7 +75,8 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .photoPadding(3)
     .backgroundColor(Color.RED)
     .photoFrameColor(Color.BLUE)
-    .useSquarePhotos(true) // makes all photos square
+    .useFirstAsHeader(true) // makes first photo fit device widtdh and use full line
+    .defaultPhotosForLine(5) // sets default photos number for line of photos (can be changed by program at runtime)
     .useCards(true) // adds cardview backgrounds to all photos
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
     .loadPhotos(urls); // here you can use Array/List of photo urls or array of resource ids
@@ -107,6 +114,14 @@ Copyright 2016 lopei
 ## Screenshots
 <img src="https://pp.vk.me/c626823/v626823371/2947c/ZO5N0vDiaT4.jpg" width="400"/>
 
+
 <img src="https://pp.vk.me/c626823/v626823371/29407/fyIqt_C1uWQ.jpg" width="400"/>
+
+
+<img src="https://pp.vk.me/c636817/v636817371/4548f/UQ9aVtDpgtU.jpg" width="400"/>
+
+
+<img src="https://pp.vk.me/c636817/v636817371/45499/g-4JTsHli5A.jpg" width="400"/>
+
 
 <img src="https://pp.vk.me/c626823/v626823371/29429/C73w7R3oZrA.jpg" width="400"/>
