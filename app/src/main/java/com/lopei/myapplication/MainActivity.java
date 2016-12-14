@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 .photoMargin(1)
                 .defaultPhotosForLine(3)
                 .useFirstAsHeader(true)
-                .headerForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT)
+                .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE)
                 .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT)
                 .placeHolder(R.drawable.placeholder_photo)
                 .loadPhotos(getDrawablesIds());
