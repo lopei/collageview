@@ -77,6 +77,8 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .defaultPhotosForLine(5) // sets default photos number for line of photos (can be changed by program at runtime)
     .useCards(true) // adds cardview backgrounds to all photos
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
+    .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE) // sets form of image for header (if useFirstAsHeader == true)
+    .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT) //sets form of image for other photos
     .loadPhotos(urls); // here you can use Array/List of photo urls or array of resource ids
 ```
 
