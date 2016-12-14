@@ -1,10 +1,10 @@
 # collageview
+
+<a href='https://play.google.com/store/apps/details?id=com.lopei.collageviewdemo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' align="left" width="400" /></a>
+
 [![](https://jitpack.io/v/lopei/collageview.svg)](https://jitpack.io/#lopei/collageview)
 
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
-
-Sample here:
-[Sample App](https://github.com/lopei/collageview/blob/master/app/src/main/java/com/lopei/myapplication/MainActivity.java)
 
 
 ## What's new in version 0.0.8?
