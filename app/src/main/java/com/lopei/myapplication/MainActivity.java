@@ -19,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         collageView
                 .photoMargin(1)
-                .useFirstAsHeader(false)
                 .defaultPhotosForLine(3)
+                .useFirstAsHeader(true)
+                .headerForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT)
+                .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT)
                 .placeHolder(R.drawable.placeholder_photo)
                 .loadPhotos(getDrawablesIds());
         collageView.setOnPhotoClickListener(new CollageView.OnPhotoClickListener() {

@@ -37,6 +37,9 @@ public class CollageView extends LinearLayout {
 
     private int defaultPhotosForLine = 3;
 
+    private ImageForm photosForm = ImageForm.IMAGE_FORM_SQUARE;
+    private ImageForm headerForm = ImageForm.IMAGE_FORM_SQUARE;
+
 
     private OnPhotoClickListener onPhotoClickListener;
 
@@ -112,6 +115,16 @@ public class CollageView extends LinearLayout {
         return this;
     }
 
+    public CollageView photosForm(ImageForm photosForm) {
+        this.photosForm = photosForm;
+        return this;
+    }
+
+    public CollageView headerForm(ImageForm headerForm) {
+        this.headerForm = headerForm;
+        return this;
+    }
+
     private void init() {
         boolean fromResources = resIds != null && urls == null;
 
@@ -151,7 +164,8 @@ public class CollageView extends LinearLayout {
                             LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
                             layoutParams.setMargins(photoMargin, photoMargin, photoMargin, photoMargin);
                             photoFrame.setLayoutParams(layoutParams);
-                            ImageView imageView = new SquareImageView(getContext());
+                            ImageForm imageForm = useFirstAsHeader && i == 0 ? headerForm : photosForm;
+                            ImageView imageView = new RectangleImageView(getContext(), imageForm);
                             imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                             imageView.setAdjustViewBounds(true);
                             imageView.setBackgroundColor(photoFrameColor);
@@ -253,5 +267,21 @@ public class CollageView extends LinearLayout {
 
     public interface OnPhotoClickListener {
         void onPhotoClick(int position);
+    }
+
+
+
+    public enum ImageForm {
+        IMAGE_FORM_SQUARE(1), IMAGE_FORM_HALF_HEIGHT(2);
+
+        private int divider = 1;
+
+        ImageForm(int divider) {
+            this.divider = divider;
+        }
+
+        public int getDivider() {
+            return divider;
+        }
     }
 }
