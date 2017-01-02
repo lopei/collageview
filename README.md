@@ -7,8 +7,8 @@
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.0.9?
-- Added ability to set form of images (separately for header (is useFirstAsHeader == true) and other photos), you can use IMAGE_FORM_SQUARE (square photo, as used before, used as default form) or IMAGE_FORM_HALF_HEIGHT (full width and half height)
+## What's new in version 0.1.0?
+- Fixed onPhotoClickListener
 
 ## How to use?
 Step 1. Add the JitPack repository to your build file
@@ -40,7 +40,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.0.9'
+  compile 'com.github.lopei:collageview:0.1.0'
 }
 ```
 
@@ -50,7 +50,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.0.9</version>
+  <version>0.1.0</version>
 </dependency>
   
 ```
