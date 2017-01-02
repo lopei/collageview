@@ -206,7 +206,7 @@ public class CollageView extends LinearLayout {
                             }
 
                             photoFrame.setOnClickListener(null);
-                            final int finalI = i;
+                            final int finalI = i - (photosInLine - j) + 1;
                             photoFrame.setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View view) {

@@ -3,6 +3,7 @@ package com.lopei.myapplication;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.lopei.collageview.CollageView;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         collageView.setOnPhotoClickListener(new CollageView.OnPhotoClickListener() {
             @Override
             public void onPhotoClick(int position) {
-                // do random stuff here
+                Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
