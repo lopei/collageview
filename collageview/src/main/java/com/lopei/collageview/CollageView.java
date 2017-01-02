@@ -204,17 +204,16 @@ public class CollageView extends LinearLayout {
                             } catch (NullPointerException e) {
                                 e.printStackTrace();
                             }
-                            if (onPhotoClickListener != null) {
-                                final int finalI = i;
-                                photoFrame.setOnClickListener(new OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+
+                            final int finalI = i;
+                            photoFrame.setOnClickListener(new OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (onPhotoClickListener != null) {
                                         onPhotoClickListener.onPhotoClick(finalI);
                                     }
-                                });
-                            } else {
-                                photoFrame.setOnClickListener(null);
-                            }
+                                }
+                            });
                             photosLine.addView(photoFrame);
                         }
                         addView(photosLine);
@@ -268,7 +267,6 @@ public class CollageView extends LinearLayout {
     public interface OnPhotoClickListener {
         void onPhotoClick(int position);
     }
-
 
 
     public enum ImageForm {
