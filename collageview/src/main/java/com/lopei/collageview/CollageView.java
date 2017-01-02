@@ -205,6 +205,7 @@ public class CollageView extends LinearLayout {
                                 e.printStackTrace();
                             }
 
+                            photoFrame.setOnClickListener(null);
                             final int finalI = i;
                             photoFrame.setOnClickListener(new OnClickListener() {
                                 @Override
