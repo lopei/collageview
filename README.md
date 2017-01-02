@@ -1,16 +1,14 @@
 # collageview
 
-<a href='https://play.google.com/store/apps/details?id=com.lopei.collageviewdemo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' align="left" width="400" /></a>
+<a href='https://play.google.com/store/apps/details?id=com.lsmedia.collageviewdemo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' align="left" width="400" /></a>
 
 [![](https://jitpack.io/v/lopei/collageview.svg)](https://jitpack.io/#lopei/collageview)
 
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.0.8?
-- Removed parameter useSquarePhotos, now all photos are square
-- Added ability to use first photo as header (fit parent width and use full line - useFirstAsHeader(true)
-- Added ability to set default photos number for a line (can be changed by a program at runtime, if there are extra photos)
+## What's new in version 0.0.9?
+- Added ability to set form of images (separately for header (is useFirstAsHeader == true) and other photos), you can use IMAGE_FORM_SQUARE (square photo, as used before, used as default form) or IMAGE_FORM_HALF_HEIGHT (full width and half height)
 
 ## How to use?
 Step 1. Add the JitPack repository to your build file
@@ -42,7 +40,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.0.8'
+  compile 'com.github.lopei:collageview:0.0.9'
 }
 ```
 
@@ -52,7 +50,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9</version>
 </dependency>
   
 ```
@@ -79,6 +77,8 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .defaultPhotosForLine(5) // sets default photos number for line of photos (can be changed by program at runtime)
     .useCards(true) // adds cardview backgrounds to all photos
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
+    .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE) // sets form of image for header (if useFirstAsHeader == true)
+    .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT) //sets form of image for other photos
     .loadPhotos(urls); // here you can use Array/List of photo urls or array of resource ids
 ```
 
@@ -124,4 +124,7 @@ Copyright 2016 lopei
 <img src="https://pp.vk.me/c636817/v636817371/45499/g-4JTsHli5A.jpg" width="400"/>
 
 
-<img src="https://pp.vk.me/c626823/v626823371/29429/C73w7R3oZrA.jpg" width="400"/>
+<img src="https://pp.vk.me/c636818/v636818371/40af0/_sxbhRCQifE.jpg" width="400"/>
+
+
+<img src="https://pp.vk.me/c636818/v636818371/40afa/QcjVfRKo0_A.jpg" width="400"/>
