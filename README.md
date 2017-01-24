@@ -7,8 +7,8 @@
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.1.0?
-- Fixed onPhotoClickListener
+## What's new in version 0.1.1?
+- added maxWidth() parameter (to be used with large images in order to prevent freezing)
 
 ## How to use?
 Step 1. Add the JitPack repository to your build file
@@ -40,7 +40,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.1.0'
+  compile 'com.github.lopei:collageview:0.1.1'
 }
 ```
 
@@ -50,7 +50,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
 </dependency>
   
 ```
@@ -76,6 +76,7 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .useFirstAsHeader(true) // makes first photo fit device widtdh and use full line
     .defaultPhotosForLine(5) // sets default photos number for line of photos (can be changed by program at runtime)
     .useCards(true) // adds cardview backgrounds to all photos
+    .maxWidth(100) // will resize images if their side is bigger than 100
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
     .headerForm(CollageView.ImageForm.IMAGE_FORM_SQUARE) // sets form of image for header (if useFirstAsHeader == true)
     .photosForm(CollageView.ImageForm.IMAGE_FORM_HALF_HEIGHT) //sets form of image for other photos
