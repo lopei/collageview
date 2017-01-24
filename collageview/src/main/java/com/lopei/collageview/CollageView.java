@@ -37,7 +37,7 @@ public class CollageView extends LinearLayout {
 
     private int defaultPhotosForLine = 3;
 
-    private int maxWidth = -1;
+    private int maxWidth = 0;
 
     private ImageForm photosForm = ImageForm.IMAGE_FORM_SQUARE;
     private ImageForm headerForm = ImageForm.IMAGE_FORM_SQUARE;
@@ -205,7 +205,7 @@ public class CollageView extends LinearLayout {
                                 if (maxWidth != -1) {
                                     assert requestCreator != null;
                                     requestCreator
-                                            .resize(maxWidth, maxWidth)
+                                            .resize(maxWidth, 0)
                                             .onlyScaleDown();
                                 }
                                 if (requestCreator != null) {
