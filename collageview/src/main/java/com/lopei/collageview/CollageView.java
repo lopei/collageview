@@ -37,6 +37,8 @@ public class CollageView extends LinearLayout {
 
     private int defaultPhotosForLine = 3;
 
+    private int maxWidth = -1;
+
     private ImageForm photosForm = ImageForm.IMAGE_FORM_SQUARE;
     private ImageForm headerForm = ImageForm.IMAGE_FORM_SQUARE;
 
@@ -72,6 +74,11 @@ public class CollageView extends LinearLayout {
 
     public CollageView photoMargin(int photoMargin) {
         this.photoMargin = photoMargin;
+        return this;
+    }
+
+    public CollageView maxWidth(int maxWidth) {
+        this.maxWidth = maxWidth;
         return this;
     }
 
@@ -194,6 +201,12 @@ public class CollageView extends LinearLayout {
                                     if (url != null) {
                                         requestCreator = picasso.load(url);
                                     }
+                                }
+                                if (maxWidth != -1) {
+                                    assert requestCreator != null;
+                                    requestCreator
+                                            .resize(maxWidth, maxWidth)
+                                            .onlyScaleDown();
                                 }
                                 if (requestCreator != null) {
                                     if (placeHolderResId != 0) {
