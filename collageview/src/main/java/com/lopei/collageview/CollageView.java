@@ -37,7 +37,7 @@ public class CollageView extends LinearLayout {
 
     private int defaultPhotosForLine = 3;
 
-    private int maxWidth = 0;
+    private int maxWidth = -1;
 
     private ImageForm photosForm = ImageForm.IMAGE_FORM_SQUARE;
     private ImageForm headerForm = ImageForm.IMAGE_FORM_SQUARE;
