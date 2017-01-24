@@ -7,7 +7,7 @@
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.1.1?
+## What's new in version 0.1.2?
 - added maxWidth() parameter (to be used with large images in order to prevent freezing)
 
 ## How to use?
@@ -40,7 +40,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.1.1'
+  compile 'com.github.lopei:collageview:0.1.2'
 }
 ```
 
@@ -50,7 +50,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
 </dependency>
   
 ```
