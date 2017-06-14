@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 
 public class CollageView extends LinearLayout {
+    public static final int INVALID_ICON = -1;
     private List<String> urls;
     private int[] resIds;
 
@@ -35,9 +37,13 @@ public class CollageView extends LinearLayout {
     private boolean useCards = false;
     private boolean useFirstAsHeader = true;
 
+    private IconSelector iconSelector;
+
     private int defaultPhotosForLine = 3;
 
     private int maxWidth = -1;
+
+    private int iconSize = 0;
 
     private ImageForm photosForm = ImageForm.IMAGE_FORM_SQUARE;
     private ImageForm headerForm = ImageForm.IMAGE_FORM_SQUARE;
@@ -69,6 +75,17 @@ public class CollageView extends LinearLayout {
 
     public CollageView photoPadding(int photoPadding) {
         this.photoPadding = photoPadding;
+        return this;
+    }
+
+    public CollageView iconSelector(IconSelector iconSelector, int iconSize) {
+        this.iconSelector = iconSelector;
+        this.iconSize = iconSize;
+        return this;
+    }
+
+    public CollageView iconSelector(IconSelector iconSelector) {
+        this.iconSelector = iconSelector;
         return this;
     }
 
@@ -179,6 +196,20 @@ public class CollageView extends LinearLayout {
                             imageView.setPadding(photoPadding, photoPadding, photoPadding, photoPadding);
                             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             photoFrame.addView(imageView);
+
+                            if (iconSelector != null &&
+                                    iconSelector.getIconResId(i - (photosInLine - j) + 1) != INVALID_ICON &&
+                                    iconSelector.getIconResId(i - (photosInLine - j) + 1) != 0) {
+                                LinearLayout iconContainer = new LinearLayout(getContext());
+                                iconContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                                iconContainer.setGravity(Gravity.CENTER);
+                                ImageView icon = new RectangleImageView(getContext(), ImageForm.IMAGE_FORM_SQUARE);
+                                int side = iconSize == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : iconSize;
+                                icon.setLayoutParams(new LayoutParams(side, side));
+                                icon.setImageResource(iconSelector.getIconResId(i - (photosInLine - j) + 1));
+                                iconContainer.addView(icon);
+                                photoFrame.addView(iconContainer);
+                            }
 
 
                             String url = null;
@@ -295,5 +326,13 @@ public class CollageView extends LinearLayout {
         public int getDivider() {
             return divider;
         }
+    }
+
+    /**
+     * Created by alan on 14.06.17.
+     */
+
+    public interface IconSelector {
+        int getIconResId(int pos);
     }
 }

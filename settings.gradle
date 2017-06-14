@@ -1,1 +1,1 @@
-include ':collageview', ':app'
+include ':collageview'
