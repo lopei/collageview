@@ -1,14 +1,12 @@
 # collageview
 
-<a href='https://play.google.com/store/apps/details?id=com.lsmedia.collageviewdemo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' align="left" width="400" /></a>
-
 [![](https://jitpack.io/v/lopei/collageview.svg)](https://jitpack.io/#lopei/collageview)
 
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.1.2?
-- added maxWidth() parameter (to be used with large images in order to prevent freezing)
+## What's new in version 0.1.3?
+- added iconSelector() parameter which allows you to add icons to the center of your collage images (such as play button, etc). You can use icons only for specific positions. Make your class implement CollageView.IconSelector and Override method getIconResId(int pos) to get your icon id;
 
 ## How to use?
 Step 1. Add the JitPack repository to your build file
@@ -40,7 +38,7 @@ Gradle:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.1.2'
+  compile 'com.github.lopei:collageview:0.1.3'
 }
 ```
 
@@ -50,7 +48,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.1.2</version>
+  <version>0.1.3</version>
 </dependency>
   
 ```
@@ -75,6 +73,7 @@ CollageView collageView = (CollageView) findViewById(R.id.collageView);
     .photoFrameColor(Color.BLUE)
     .useFirstAsHeader(true) // makes first photo fit device widtdh and use full line
     .defaultPhotosForLine(5) // sets default photos number for line of photos (can be changed by program at runtime)
+    .iconSelector(this, getResources().getDimensionPixelSize(R.dimen.icon_size)) (or use 0 as size to wrap content)
     .useCards(true) // adds cardview backgrounds to all photos
     .maxWidth(100) // will resize images if their side is bigger than 100
     .placeHolder(R.drawable.placeholder_photo) //adds placeholder resource
@@ -92,6 +91,21 @@ collageView.setOnPhotoClickListener(new CollageView.OnPhotoClickListener() {
    }
 });
 ```
+
+Step 6. Setup icons for your images (if needed, to be used with .iconSelector(IconSelector))
+```
+collageView.iconSelector(new CollageView.IconSelector() {
+                    @Override
+                    public int getIconResId(int pos) {
+                        if (pos == 0 || pos  == 4) {
+                            return R.mipmap.ic_launcher;
+                        }
+                        return 0;
+                    }
+                }
+, getResources().getDimensionPixelSize(R.dimen.icon_size));
+```
+
 ## Contrubution
 
 Contributions are always welcome
