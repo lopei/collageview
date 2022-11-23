@@ -45,7 +45,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.lopei'
                 artifactId = 'collageview'
-                version = '2.0.0.2'
+                version = '0.2.0.2'
             }
         }
     }
