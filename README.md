@@ -5,8 +5,8 @@
 CollageView is a library for creating simple photo collages in your applications. Would be great, for example, in profile page or feed page.
 
 
-## What's new in version 0.1.3?
-- added iconSelector() parameter which allows you to add icons to the center of your collage images (such as play button, etc). You can use icons only for specific positions. Make your class implement CollageView.IconSelector and Override method getIconResId(int pos) to get your icon id;
+## What's new in version 0.2.0?
+- Updated project libraries, updated build.gradle, removed sample images
 
 ## How to use?
 Step 1. Add the JitPack repository to your build file
