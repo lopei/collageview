@@ -13,6 +13,18 @@ Step 1. Add the JitPack repository to your build file
 
 Gradle:
 
+For gradle version 6.8 and above:
+- settings.gradle, project level:
+
+```
+dependencyResolutionManagement {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+- build.gradle, project level:
 ```
 allprojects {
   repositories {
@@ -35,10 +47,11 @@ Maven:
 Step 2. Add the dependency
 
 Gradle:
+- build.gradle, module level:
 
 ```
 dependencies {
-  compile 'com.github.lopei:collageview:0.1.3'
+  implementation 'com.github.lopei:collageview:0.2.0'
 }
 ```
 
@@ -48,7 +61,7 @@ Maven:
 <dependency>
   <groupId>com.github.lopei</groupId>
   <artifactId>collageview</artifactId>
-  <version>0.1.3</version>
+  <version>0.2.0</version>
 </dependency>
   
 ```
