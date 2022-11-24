@@ -2,7 +2,8 @@ package com.lopei.collageview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.lopei.collageview.CollageView.ImageForm;
 
@@ -10,7 +11,7 @@ import com.lopei.collageview.CollageView.ImageForm;
  * Created by alan on 08.12.16.
  */
 
-public class RectangleImageView extends androidx.appcompat.widget.AppCompatImageView {
+public class RectangleImageView extends AppCompatImageView {
     private ImageForm imageForm = ImageForm.IMAGE_FORM_SQUARE;
 
     public RectangleImageView(Context context, ImageForm imageForm) {
